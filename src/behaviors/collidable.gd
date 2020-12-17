@@ -1,9 +1,11 @@
 extends Node
 
 var current_velocity := Vector2()
-var friction := 0.1
-var bounciness := 1.0
-var mass := 0.5
+var ignore_groups := []
+export var friction := 0.1
+export var bounciness := 1.0
+export var mass := 0.5
+export var test_only := false
 
 onready var target : KinematicBody2D = get_parent()
 
@@ -11,7 +13,7 @@ func _physics_process(_delta):
 	var collision := target.move_and_collide(current_velocity)
 	if collision != null:
 		var collider := collision.get_collider()
-		if collider.is_in_group('collidable_behavior'):
+		if collider.is_in_group('collidable_behavior') && !test_only:
 			resolve_collision(collider.get_node('Collidable'))
 		else:
 			current_velocity = current_velocity.bounce(collision.normal)
@@ -35,8 +37,3 @@ func resolve_collision(collider : Node):
 func _ready():
 	assert(target is KinematicBody2D)
 	target.add_to_group('collidable_behavior')
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

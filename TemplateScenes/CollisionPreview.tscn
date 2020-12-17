@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/behaviors/collidable.gd" type="Script" id=1]
+[ext_resource path="res://src/behaviors/self_destructable.gd" type="Script" id=2]
+[ext_resource path="res://assets/Ellipse 1.png" type="Texture" id=3]
+[ext_resource path="res://src/behaviors/fades_over_time.gd" type="Script" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 32.0
+
+[node name="CollisionPreview" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="FadesOverTime" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="SelfDestructable" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="Collidable" type="Node" parent="."]
+script = ExtResource( 1 )
+friction = 0.01
+mass = 0.01
+test_only = true
+
+[node name="Ellipse 1" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )

@@ -8,9 +8,14 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Object",
+"class": "GroupHelper",
+"language": "GDScript",
+"path": "res://src/libs/group_helper.gd"
+} ]
 _global_script_class_icons={
-
+"GroupHelper": ""
 }
 
 [application]
@@ -18,6 +23,17 @@ _global_script_class_icons={
 config/name="AnotherGolf"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+IdGenerator="*res://src/singletons/id_generator.gd"
+
+[layer_names]
+
+2d_physics/layer_1="CommonCollisions"
+2d_physics/layer_2="PlayerCollision"
+2d_physics/layer_3="RemotePlayerCollision"
+2d_physics/layer_4="Static"
 
 [rendering]
 
