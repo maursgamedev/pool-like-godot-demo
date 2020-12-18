@@ -9,7 +9,14 @@ export var test_only := false
 
 onready var target : KinematicBody2D = get_parent()
 
+func _ready():
+	assert(target is KinematicBody2D)
+	target.add_to_group('collidable_behavior')
+
 func _physics_process(_delta):
+	physics_step()
+
+func physics_step():
 	var collision := target.move_and_collide(current_velocity)
 	if collision != null:
 		var collider := collision.get_collider()
@@ -33,7 +40,3 @@ func resolve_collision(collider : Node):
 	var impulse : Vector2 = current_velocity.normalized() * impulse_escalar
 	current_velocity -= 1.0 / mass * impulse
 	collider.current_velocity += 1.0 / collider.mass * impulse
-
-func _ready():
-	assert(target is KinematicBody2D)
-	target.add_to_group('collidable_behavior')

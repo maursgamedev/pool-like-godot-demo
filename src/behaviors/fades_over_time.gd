@@ -1,6 +1,6 @@
 extends Node
 
-var original_fadeout_time := 1.0
+export var original_fadeout_time := 1.0
 var fadeout_time := original_fadeout_time
 
 onready var target : Node2D = get_parent()
