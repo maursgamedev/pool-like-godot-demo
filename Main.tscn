@@ -36,7 +36,7 @@ color = Color( 0.0745098, 0.27451, 0.694118, 1 )
 polygon = PoolVector2Array( -102.624, 134.198, -103.568, -131.974, 105.972, -134.806, 102.417, 153.652 )
 
 [node name="Player" type="KinematicBody2D" parent="."]
-position = Vector2( 245.765, 311.607 )
+position = Vector2( 350.338, 195.694 )
 z_index = 1
 collision_layer = 2
 collision_mask = 15
@@ -46,6 +46,7 @@ __meta__ = {
 
 [node name="Collidable" type="Node" parent="Player"]
 script = ExtResource( 1 )
+mass = 1.0
 
 [node name="Draggable" type="Node" parent="Player"]
 script = ExtResource( 6 )

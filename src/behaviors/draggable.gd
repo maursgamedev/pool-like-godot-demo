@@ -7,7 +7,7 @@ export var original_restoration_time := 0.05
 export var starting_speed := 20.0
 export var preview_frequency := 0.1
 export var angle_change_cooldown_template := 0.2
-export var preview_points : int = 15
+export var preview_points : int = 10
 
 var mouse_was_pressed := false
 var mouse_is_pressed := false
@@ -93,33 +93,13 @@ func update_preview(preview_angle : Vector2):
 	preview_holder.show()
 	if preview_angle != last_preview_angle:
 		target.add_child(preview_tracer)
-		preview_tracer.position = preview_angle.normalized() * character_radius
+		preview_tracer.position = Vector2()
 		tracer_collidable.current_velocity = preview_angle.normalized() * 50.0
+		#
+		tracer_collidable.physics_step()
+		#
 		for pellet in preview_holder.get_children():
 			pellet.position = preview_tracer.position
 			tracer_collidable.physics_step()
 		target.remove_child(preview_tracer)
 	last_preview_angle = preview_angle
-
-# func produce_preview(delta, preview_speed):
-# 	current_preview_cooldown -= delta
-# 	if last_preview_angle != preview_speed.normalized():
-# 		remove_all_preview_nodes()
-# 		current_preview_cooldown = angle_change_cooldown_template
-# 	last_preview_angle = preview_speed.normalized()
-# 	if current_preview_cooldown < 0.0:
-# 		current_preview_cooldown = preview_frequency
-# 		# prepare
-# 		var preview_node = preview_template.instance()
-# 		preview_node.position = preview_speed.normalized() * (character_radius * 1.5)
-# 		preview_node.get_node("Collidable").current_velocity = preview_speed
-# 		preview_node.get_node("Collidable").ignore_groups.append(source_node_group)
-# 		# add to scene
-# 		target.add_child(preview_node)
-# 		preview_nodes.append(preview_node)
-
-# func remove_all_preview_nodes():
-# 	for node in preview_nodes:
-# 		if node:
-# 			node.queue_free()
-# 	preview_nodes = []
