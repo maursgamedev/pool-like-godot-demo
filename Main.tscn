@@ -1,391 +1,157 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://src/behaviors/collidable.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
-[ext_resource path="res://Collidable.tscn" type="PackedScene" id=3]
-[ext_resource path="res://DraggableBorder.tscn" type="PackedScene" id=4]
-[ext_resource path="res://IceFloor.gd" type="Script" id=5]
-[ext_resource path="res://src/behaviors/draggable.gd" type="Script" id=6]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://StagePieces/BlockCorner.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/background_brown.png" type="Texture" id=3]
+[ext_resource path="res://StagePieces/BlockSmall.tscn" type="PackedScene" id=4]
+[ext_resource path="res://StagePieces/BlockNarrow.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/hole_large.png" type="Texture" id=6]
+[ext_resource path="res://Collidable.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Goal.gd" type="Script" id=8]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 105.954, 136.723 )
-
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=1]
 radius = 32.0
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 111.393, 10 )
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2( 724.523, 315.597 )
-input_pickable = false
-collision_layer = 0
-collision_mask = 7
-script = ExtResource( 5 )
+[node name="BackgroundTexture" type="TextureRect" parent="."]
+margin_top = 3.0
+margin_right = 2392.0
+margin_bottom = 1697.0
+mouse_filter = 2
+input_pass_on_modal_close_click = false
+texture = ExtResource( 3 )
+stretch_mode = 2
 __meta__ = {
-"_edit_group_": true
+"_edit_lock_": true,
+"_edit_use_anchors_": false
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 1 )
+[node name="Gameplay" type="Node2D" parent="."]
+position = Vector2( 96, 48 )
 
-[node name="Polygon2D" type="Polygon2D" parent="Area2D"]
-color = Color( 0.0745098, 0.27451, 0.694118, 1 )
-polygon = PoolVector2Array( -102.624, 134.198, -103.568, -131.974, 105.972, -134.806, 102.417, 153.652 )
+[node name="Player" parent="Gameplay" instance=ExtResource( 1 )]
+position = Vector2( 64, 96 )
 
-[node name="Player" type="KinematicBody2D" parent="."]
-position = Vector2( 350.338, 195.694 )
-z_index = 1
-collision_layer = 2
-collision_mask = 15
-__meta__ = {
-"_edit_group_": true
-}
+[node name="BlockNarrow" parent="Gameplay" instance=ExtResource( 5 )]
+position = Vector2( 96, -16 )
 
-[node name="Collidable" type="Node" parent="Player"]
-script = ExtResource( 1 )
-mass = 1.0
+[node name="BlockNarrow3" parent="Gameplay" instance=ExtResource( 5 )]
+position = Vector2( 352, -16 )
 
-[node name="Draggable" type="Node" parent="Player"]
-script = ExtResource( 6 )
+[node name="BlockNarrow4" parent="Gameplay" instance=ExtResource( 5 )]
+position = Vector2( 608, -16 )
 
-[node name="Border" parent="Player" instance=ExtResource( 4 )]
+[node name="BlockNarrow5" parent="Gameplay" instance=ExtResource( 5 )]
+position = Vector2( 1056, -16 )
 
-[node name="Texture" type="Polygon2D" parent="Player"]
-texture = ExtResource( 2 )
-texture_offset = Vector2( 32, 32 )
-polygon = PoolVector2Array( -1.39876e-06, -32, 7.6581, -31.0701, 14.8711, -28.3346, 21.2199, -23.9523, 26.3355, -18.1781, 29.9205, -11.3474, 31.7667, -3.85718, 31.7667, 3.85717, 29.9205, 11.3474, 26.3355, 18.1781, 21.2199, 23.9523, 14.8711, 28.3346, 7.6581, 31.0701, -1.39876e-06, 32, -7.6581, 31.0701, -14.8711, 28.3346, -21.2199, 23.9523, -26.3355, 18.1781, -29.9205, 11.3474, -31.7667, 3.85718, -31.7667, -3.85717, -29.9205, -11.3474, -26.3355, -18.1781, -21.2199, -23.9523, -14.8711, -28.3346, -7.6581, -31.0701 )
+[node name="BlockNarrow6" parent="Gameplay" instance=ExtResource( 5 )]
+position = Vector2( 1152, 144 )
+rotation = 3.14159
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource( 2 )
+[node name="BlockNarrow2" parent="Gameplay" instance=ExtResource( 5 )]
+position = Vector2( -64, 144 )
+rotation = 3.14159
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="BlockNarrow7" parent="Gameplay" instance=ExtResource( 5 )]
+position = Vector2( -64, 400 )
+rotation = 3.14159
+
+[node name="BlockNarrow8" parent="Gameplay" instance=ExtResource( 5 )]
+position = Vector2( 352, 688 )
+
+[node name="BlockNarrow12" parent="Gameplay" instance=ExtResource( 5 )]
+position = Vector2( 32, 688 )
+
+[node name="BlockNarrow9" parent="Gameplay" instance=ExtResource( 5 )]
+position = Vector2( 672, 688 )
+
+[node name="BlockNarrow13" parent="Gameplay" instance=ExtResource( 5 )]
+position = Vector2( 640, 336 )
+rotation = 3.14159
+
+[node name="BlockNarrow14" parent="Gameplay" instance=ExtResource( 5 )]
+position = Vector2( 320, 144 )
+rotation = 3.14159
+
+[node name="BlockNarrow10" parent="Gameplay" instance=ExtResource( 5 )]
+position = Vector2( 992, 688 )
+
+[node name="BlockNarrow11" parent="Gameplay" instance=ExtResource( 5 )]
+position = Vector2( 1152, 400 )
+rotation = 3.14159
+
+[node name="BlockSmall" parent="Gameplay" instance=ExtResource( 4 )]
+position = Vector2( -64, -16 )
+
+[node name="BlockSmall3" parent="Gameplay" instance=ExtResource( 4 )]
+position = Vector2( 768, -16 )
+
+[node name="BlockSmall4" parent="Gameplay" instance=ExtResource( 4 )]
+position = Vector2( 832, -16 )
+
+[node name="BlockSmall5" parent="Gameplay" instance=ExtResource( 4 )]
+position = Vector2( 896, -16 )
+
+[node name="BlockSmall2" parent="Gameplay" instance=ExtResource( 4 )]
+position = Vector2( 640, 496 )
+
+[node name="BlockSmall10" parent="Gameplay" instance=ExtResource( 4 )]
+position = Vector2( 320, 304 )
+
+[node name="BlockSmall6" parent="Gameplay" instance=ExtResource( 4 )]
+position = Vector2( 512, 688 )
+
+[node name="BlockSmall9" parent="Gameplay" instance=ExtResource( 4 )]
+position = Vector2( 192, 688 )
+
+[node name="BlockSmall7" parent="Gameplay" instance=ExtResource( 4 )]
+position = Vector2( 832, 688 )
+
+[node name="BlockSmall8" parent="Gameplay" instance=ExtResource( 4 )]
+position = Vector2( 1152, 688 )
+
+[node name="BlockCorner" parent="Gameplay" instance=ExtResource( 2 )]
+position = Vector2( -32, 592 )
+
+[node name="BlockCorner2" parent="Gameplay" instance=ExtResource( 2 )]
+position = Vector2( 1120, 592 )
+rotation = -1.57079
+
+[node name="Camera2D" type="Camera2D" parent="Gameplay"]
+position = Vector2( 544, 344 )
 current = true
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Preview" type="Node2D" parent="Player"]
+[node name="Hole" type="Sprite" parent="Gameplay"]
+position = Vector2( 784, 512 )
+texture = ExtResource( 6 )
+script = ExtResource( 8 )
 
-[node name="Node2D2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 290.142, 365.859 )
+[node name="Area2D" type="Area2D" parent="Gameplay/Hole"]
+collision_layer = 0
 collision_mask = 7
 
-[node name="Node2D3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 207.734, 365.859 )
-collision_mask = 7
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gameplay/Hole/Area2D"]
+shape = SubResource( 1 )
 
-[node name="Node2D4" parent="." instance=ExtResource( 3 )]
-position = Vector2( 152.235, 273.36 )
-collision_mask = 7
+[node name="Tween" type="Tween" parent="Gameplay/Hole"]
 
-[node name="Node2D5" parent="." instance=ExtResource( 3 )]
-position = Vector2( 379.277, 308.678 )
-collision_mask = 7
+[node name="Node2D2" parent="Gameplay" instance=ExtResource( 7 )]
+position = Vector2( 472, 488 )
 
-[node name="Walls" type="Node2D" parent="."]
+[node name="Node2D3" parent="Gameplay" instance=ExtResource( 7 )]
+position = Vector2( 776, 224 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
-position = Vector2( 328, 96 )
-collision_layer = 8
-__meta__ = {
-"_edit_group_": true
-}
+[node name="Node2D5" parent="Gameplay" instance=ExtResource( 7 )]
+position = Vector2( 728, 312 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D"]
-shape = SubResource( 3 )
+[node name="Node2D6" parent="Gameplay" instance=ExtResource( 7 )]
+position = Vector2( 840, 336 )
 
-[node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D"]
-margin_left = -110.0
-margin_top = -9.0
-margin_right = 111.0
-margin_bottom = 9.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Node2D4" parent="Gameplay" instance=ExtResource( 7 )]
+position = Vector2( 360, 400 )
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="Walls"]
-position = Vector2( 531.213, 149.749 )
-rotation = 0.601417
-collision_layer = 8
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D2"]
-shape = SubResource( 3 )
-
-[node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D2"]
-margin_left = -110.0
-margin_top = -9.0
-margin_right = 111.0
-margin_bottom = 9.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="Walls"]
-position = Vector2( 497.587, 508.841 )
-rotation = -1.85808
-collision_layer = 8
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D3"]
-shape = SubResource( 3 )
-
-[node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D3"]
-margin_left = -110.0
-margin_top = -9.0
-margin_right = 111.0
-margin_bottom = 9.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="StaticBody2D13" type="StaticBody2D" parent="Walls"]
-position = Vector2( 666.587, 536.841 )
-rotation = -4.42594
-collision_layer = 8
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D13"]
-shape = SubResource( 3 )
-
-[node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D13"]
-margin_left = -110.0
-margin_top = -9.0
-margin_right = 111.0
-margin_bottom = 9.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="StaticBody2D14" type="StaticBody2D" parent="Walls"]
-position = Vector2( 726.976, 683.047 )
-rotation = -5.78787
-collision_layer = 8
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D14"]
-shape = SubResource( 3 )
-
-[node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D14"]
-margin_left = -110.0
-margin_top = -9.0
-margin_right = 111.0
-margin_bottom = 9.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="StaticBody2D15" type="StaticBody2D" parent="Walls"]
-position = Vector2( 463.17, 688.344 )
-rotation = -3.99906
-collision_layer = 8
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D15"]
-shape = SubResource( 3 )
-
-[node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D15"]
-margin_left = -110.0
-margin_top = -9.0
-margin_right = 111.0
-margin_bottom = 9.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="Walls"]
-position = Vector2( 152.925, 171.944 )
-rotation = 2.34682
-collision_layer = 8
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D4"]
-shape = SubResource( 3 )
-
-[node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D4"]
-margin_left = -110.0
-margin_top = -9.0
-margin_right = 111.0
-margin_bottom = 9.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="StaticBody2D5" type="StaticBody2D" parent="Walls"]
-position = Vector2( 119.289, 350.214 )
-rotation = 1.20605
-collision_layer = 8
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D5"]
-shape = SubResource( 3 )
-
-[node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D5"]
-margin_left = -110.0
-margin_top = -9.0
-margin_right = 111.0
-margin_bottom = 9.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="StaticBody2D7" type="StaticBody2D" parent="Walls"]
-position = Vector2( 717.823, 213.91 )
-rotation = 0.0174635
-collision_layer = 8
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D7"]
-shape = SubResource( 3 )
-
-[node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D7"]
-margin_left = -110.0
-margin_top = -9.0
-margin_right = 111.0
-margin_bottom = 9.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="StaticBody2D8" type="StaticBody2D" parent="Walls"]
-position = Vector2( 914.045, 182.107 )
-rotation = -0.344295
-collision_layer = 8
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D8"]
-shape = SubResource( 3 )
-
-[node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D8"]
-margin_left = -110.0
-margin_top = -9.0
-margin_right = 111.0
-margin_bottom = 9.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="StaticBody2D9" type="StaticBody2D" parent="Walls"]
-position = Vector2( 1098.39, 199.059 )
-rotation = 0.525433
-collision_layer = 8
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D9"]
-shape = SubResource( 3 )
-
-[node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D9"]
-margin_left = -110.0
-margin_top = -9.0
-margin_right = 111.0
-margin_bottom = 9.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="StaticBody2D10" type="StaticBody2D" parent="Walls"]
-position = Vector2( 1172.55, 353.74 )
-rotation = 1.76022
-collision_layer = 8
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D10"]
-shape = SubResource( 3 )
-
-[node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D10"]
-margin_left = -110.0
-margin_top = -9.0
-margin_right = 111.0
-margin_bottom = 9.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="StaticBody2D11" type="StaticBody2D" parent="Walls"]
-position = Vector2( 1047.54, 466.043 )
-rotation = 3.08302
-collision_layer = 8
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D11"]
-shape = SubResource( 3 )
-
-[node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D11"]
-margin_left = -110.0
-margin_top = -9.0
-margin_right = 111.0
-margin_bottom = 9.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="StaticBody2D12" type="StaticBody2D" parent="Walls"]
-position = Vector2( 835.504, 460.449 )
-rotation = -3.01141
-scale = Vector2( 1.43539, 2.58546 )
-collision_layer = 8
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D12"]
-shape = SubResource( 3 )
-
-[node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D12"]
-margin_left = -110.0
-margin_top = -9.0
-margin_right = 111.0
-margin_bottom = 9.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="StaticBody2D6" type="StaticBody2D" parent="Walls"]
-position = Vector2( 255.515, 444.395 )
-rotation = 2.99135
-scale = Vector2( 2.11809, 1 )
-collision_layer = 8
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D6"]
-shape = SubResource( 3 )
-
-[node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D6"]
-margin_left = -110.0
-margin_top = -9.0
-margin_right = 111.0
-margin_bottom = 9.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="CanvasLayer" type="CanvasLayer" parent="."]

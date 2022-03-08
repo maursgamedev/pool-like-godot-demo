@@ -29,11 +29,12 @@ var preview_pellet_template := preload('res://TemplateScenes/PreviewPellet.tscn'
 var preview_tracer := preview_template.instance()
 var tracer_collidable := preview_tracer.get_node('Collidable')
 onready var border := $'../Border'
-onready var camera := $'../Camera2D'
 onready var target : KinematicBody2D = get_parent()
 onready var collidable : Node = target.get_node('Collidable')
 onready var preview_holder : Node2D = $'../Preview'
 
+signal drag_release
+signal drag_start
 
 func _ready():
 	source_node_group += '_' + String(IdGenerator.get_next_id('draggable'))
@@ -44,6 +45,8 @@ func _ready():
 	original_polygon = border.polygon
 	#
 	preview_holder.hide()
+	border.show()
+	
 	for point in range(preview_points):
 		var pellet := preview_pellet_template.instance()
 		pellet.modulate = Color(1.0,1.0,1.0, 1 - float(point)/float(preview_points) )
@@ -69,9 +72,14 @@ func deformed_polygon(drag_vector: Vector2) -> PoolVector2Array:
 	return result
 
 func _process(delta):
-	if mouse_is_inside && mouse_is_pressed && !mouse_was_pressed:
+	if collidable.current_velocity.length() <= 0.04:
+		border.fade_in()
+	else:
+		border.fade_out()
+	if _is_starting_dragging():
 		start_drag_position = mouse_position
 		is_dragging = true
+		emit_signal("drag_start")
 	if mouse_is_pressed && mouse_was_pressed && is_dragging:
 		deformation_vector = -(start_drag_position - mouse_position).clamped(max_drag_distance)
 		border.polygon = deformed_polygon(deformation_vector)
@@ -81,6 +89,7 @@ func _process(delta):
 		restoration_timer = original_restoration_time
 		is_dragging = false
 		preview_holder.hide()
+		emit_signal("drag_release")
 	if restoration_timer > -0.01 && !is_dragging:
 		border.polygon = deformed_polygon(
 			deformation_vector * (restoration_timer / original_restoration_time)
@@ -96,10 +105,13 @@ func update_preview(preview_angle : Vector2):
 		preview_tracer.position = Vector2()
 		tracer_collidable.current_velocity = preview_angle.normalized() * 50.0
 		#
-		tracer_collidable.physics_step()
+		tracer_collidable.physics_step(0.0)
 		#
 		for pellet in preview_holder.get_children():
 			pellet.position = preview_tracer.position
-			tracer_collidable.physics_step()
+			tracer_collidable.physics_step(0.0)
 		target.remove_child(preview_tracer)
 	last_preview_angle = preview_angle
+
+func _is_starting_dragging():
+	return mouse_is_inside && mouse_is_pressed && !mouse_was_pressed && collidable.current_velocity.length() <= 0.04

@@ -8,15 +8,18 @@ export var mass := 0.5
 export var test_only := false
 
 onready var target : KinematicBody2D = get_parent()
+var texture
 
 func _ready():
 	assert(target is KinematicBody2D)
 	target.add_to_group('collidable_behavior')
+	if target.has_node("Texture"):
+		 texture = target.get_node("Texture")
 
-func _physics_process(_delta):
-	physics_step()
+func _physics_process(delta):
+	physics_step(delta)
 
-func physics_step():
+func physics_step(delta):
 	var collision := target.move_and_collide(current_velocity)
 	if collision != null:
 		var collider := collision.get_collider()
@@ -25,8 +28,10 @@ func physics_step():
 		else:
 			current_velocity = current_velocity.bounce(collision.normal)
 	current_velocity = current_velocity.normalized() * clamp(current_velocity.length() - friction, 0.0, INF)
+	if texture && delta > 0.0:
+		texture.rotation_degrees = wrapf(texture.rotation_degrees + current_velocity.length()  * delta * 100, 0, 360)
 
-func resolve_collision(collider : Node):
+func resolve_collision(collider : Node) -> void:
 	var relative_velocity : Vector2 = collider.current_velocity - current_velocity
 	var velocity_along_normal := relative_velocity.dot(current_velocity.normalized())
 	

@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/block_corner_large.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 20.7399
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 106.951 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 10.7865, 150.804 )
+
+[node name="BlockCornerLarge" type="Sprite"]
+position = Vector2( -30.9477, 367.386 )
+texture = ExtResource( 2 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 107.505, 107.318 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( -107.183, -108.077 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( -108.669, 108.954 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( -118.622, -0.0510254 )
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 9.19226, -4.86777 )
+rotation = -0.785397
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 4.46899, 117.94 )
+rotation = 1.57079
+shape = SubResource( 2 )
